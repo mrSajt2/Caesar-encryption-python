@@ -1,4 +1,4 @@
-abc = "AÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ123456789&/. :"
+abc = "AÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ "
 def encode(data, key):
     data = data.upper()
     encrypted_data = ""
@@ -17,16 +17,15 @@ def encode(data, key):
         return "Nem jó kulcsot adtál meg!"
 
 def decode(data, key):
+    encrypted_data = ""
     data = data.upper()
-    decoded_data = ""
+    while True:
+        if key > len(abc):
+            key -= len(abc)
+        else:
+            break
     for e in data:
         for i in range(len(abc)):
             if e == abc[i]:
-                while True:
-                    if i - key > len(abc):
-                        key += len(abc)
-                        print(key)
-                    else:
-                        decoded_data += abc[i-key]
-                        break
-    return decoded_data
+                encrypted_data += abc[i-key]
+    return encrypted_data
